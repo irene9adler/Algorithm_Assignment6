@@ -1,0 +1,44 @@
+\documentclass[11pt]{ctexart}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{palatino}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\author{Song Qige 2017E8018661044}
+\title{091M4041H - Assignment 6 \\Algorithm Design and Analysis }
+
+\begin{document}
+ \begin{CJK*}{GBK}{song}
+  \maketitle
+   \section{Interger Programming(1)}%第一题
+
+         \ 首先说明Interger Programming问题属于NP问题：x是n维整数向量，给定矩阵A、向量b和向量x，可以在多项式时间内验证$Ax \ge b$。因此问题属于NP问题。 \\
+         下面通过证明$3SAT \le _P \ Iterger \ Programming$说明问题是NP完全的。此证明需要指出对于3SAT的一个输入实例，对应的输出只有在Interger Programming问题中满足结果时才可满足3-SAT问题。可按如下过程构造问题： \\
+         对于一个3-SAT对应的和取范式：$(x_1 \vee x_2) \wedge (\neg x_1 \vee \neg x_3)\wedge(x_2 \vee \neg x_3)$，每一个子句可分别对应一个不等式约束：\\
+         $x_1+x_2 \ge 1$ \\
+         $(1-x_1)+(1-x_3) \ge 1$ ，即$-x_1-x_3>=-1$ \\
+         $x_2+(1-x_3) >=1$，即$x2-x3>=0$ \\
+        当i为true时$x_i$为1，当i为false时$x_i$为0。
+        每个不等式约束右侧的常量值可组成向量b。所有的不等式约束可组成矩阵相乘形式。 \\
+        当3-SAT问题对应于一个true assignment时，表示每个子句对应的不等式约束均得到满足。即可表示为形式$Ax \ge b$得到满足，即对应的Interger Programming问题满足。而当Interger Programming问题满足时，说明每行的不等式约束满足，即3-SAT问题的全部子句满足，对应为true assignment。
+        因此$3SAT \le _P \ Iterger \ Programming$，即iterger programming问题是NP完全的。\\
+
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       \section{Half-3SAT(3)}%第三题
+
+       \ 首先说明Half-3SAT问题属于NP问题：给定n个变量的true或false的设定，即可得到m个子句的真假，如果全部子句为真，则是该和取范式的true assignment。这个判断过程可以在多项式时间内完成，因此问题属于NP问题。 \\
+       下面通过证明$3-SAT \le _P Half-3SAT$证明问题是NP完全的。此证明需要指出对于3-SAT的一个输入实例，将其变换为一个Half-3SAT实例。此实例只有在Half-3SAT问题满足时才可满足3-SAT问题。\\
+       可按如下过程构造问题：\\
+       设一个3-SAT问题有3个变量$x_1,x_2,x_3$，有n个子句，构造一个对应的Half-3SAT问题，其中有n个子句与SAT问题中的n个子句相同，有n个子句构造为$x_1 \vee \neg x_1 \vee x_2$，即构造为恒为true的子句。另有2n个子句构造为同真同假的子句$p \vee q \vee r$。\\
+       如果3-SAT问题满足，HALF-3SAT问题中与其相同的n个子句均为真，并且有n个恒为真的子句，因此其剩余2n个子句应赋值为全为假（p=q=r=false），则HALF-3SAT问题满足有一般子句为真。\\
+       如果这个HALF-3SAT问题可满足，那么其中的2n个同真同假的子句一定全为假，否则HALF-3SAT问题中会有至少3n个子句为真，不是true assignment。这样与对应3-SAT问题相同的n个子句必须均为真才可满足有一半子句为真的条件，因此此时对应的3-SAT问题是可满足的。\\
+       由以上过程，$3-SAT \le _P half-3SAT$。因此Half-3SAT问题是NP完全的。
+
+ \end{CJK*}
+\end{document}
